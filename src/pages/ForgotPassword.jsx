@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { getAuth, sendPasswordResetEmail } from 'firebase/auth';
 import { toast } from 'react-toastify';
+import background from '../assets/sign-in-up.jpg';
 
 function ForgotPassword() {
   const [email, setEmail] = useState('');
@@ -17,7 +18,7 @@ function ForgotPassword() {
     try {
       const auth = getAuth();
       await sendPasswordResetEmail(auth, email);
-      toast.success('Email was sent!');
+      toast.success('Email was sent! Please check your spam');
       navigate('/sign-in');
     } catch (error) {
       toast.error('Could not send reset email');
@@ -25,30 +26,54 @@ function ForgotPassword() {
   };
 
   return (
-    <div className='pageContainer'>
-      <header>
-        <p className='pageheader'>Forgot Password</p>
-      </header>
+    <div
+      className='hero min-h-screen py-5'
+      style={{
+        backgroundImage: `url(${background})`,
+        backgroundAttachment: 'fixed',
+      }}
+    >
+      <div className='hero-content flex-col'>
+        <div className='text-center lg:text-left'>
+          <h1 className='text-5xl font-bold text-center mb-4'>
+            Personal Finance App
+          </h1>
+        </div>
+        <div className='card flex-shrink-0 w-full max-w-md shadow-xl bg-base-100 bg-opacity-80 backdrop-blur-lg'>
+          <div className='card-body'>
+            <h2 className='text-2xl font-bold text-center'>Forgot Password</h2>
+            <div className='form-control'>
+              <label className='label'>
+                <span className='label-text'>Email</span>
+              </label>
+              <input
+                type='email'
+                id='email'
+                value={email}
+                onChange={onChange}
+                className='input input-bordered'
+              />
+            </div>
 
-      <main>
-        <form onSubmit={onSubmit}>
-          <input
-            type='email'
-            className='emailInput'
-            placeholder='Email'
-            id='email'
-            value={email}
-            onChange={onChange}
-          />
-          <Link className='forgotPasswordLink' to='/sign-in'>
-            Just Kidding? Sign In
-          </Link>
-          <div className='signInBar'>
-            <div className='signInText'>Send Reset Link</div>
-            <button className='signInButton'> Send </button>
+            <label className='label'>
+              <Link
+                to='/sign-in'
+                className='label-text-alt link link-hover mt-[-5px] link-primary'
+              >
+                Oh, did you <span className='italic'>just</span> remember?
+              </Link>
+            </label>
+            <div className='form-control mt-4'>
+              <button
+                className='btn btn-primary text-base-100'
+                onClick={onSubmit}
+              >
+                Reset Password
+              </button>
+            </div>
           </div>
-        </form>
-      </main>
+        </div>
+      </div>
     </div>
   );
 }

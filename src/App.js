@@ -6,6 +6,7 @@ import Budget from './pages/Budget';
 import SignIn from './pages/SignIn';
 import SignUp from './pages/SignUp';
 import ForgotPassword from './pages/ForgotPassword';
+import Profile from './pages/Profile';
 
 function App() {
   return (
@@ -15,6 +16,9 @@ function App() {
           <Routes>
             <Route path='/' element={<PrivateRoute />}>
               <Route path='/' element={<Budget />} />
+            </Route>
+            <Route path='/profile' element={<PrivateRoute />}>
+              <Route path='/profile' element={<Profile />} />
             </Route>
             <Route path='/sign-up' element={<SignUp />} />
             <Route path='/sign-in' element={<SignIn />} />
