@@ -45,6 +45,11 @@ function SignIn() {
     }
   };
 
+  // iPhone notch area color match
+  document
+    .querySelector('meta[name="theme-color"]')
+    .setAttribute('content', '#fff');
+
   return (
     <div
       className='hero min-h-screen py-5'

@@ -2,6 +2,11 @@ import React from 'react';
 import Navbar from '../components/layout/Navbar';
 
 function Budget() {
+  // iPhone notch area color match
+  document
+    .querySelector('meta[name="theme-color"]')
+    .setAttribute('content', '#4c6bfb');
+
   return (
     <>
       <main className='my-[150px]'>

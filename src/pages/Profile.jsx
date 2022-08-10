@@ -63,6 +63,11 @@ function Profile() {
     }
   };
 
+  // iPhone notch area color match
+  document
+    .querySelector('meta[name="theme-color"]')
+    .setAttribute('content', '#4c6bfb');
+
   return (
     <>
       <header className='fixed top-0 w-full px-4 py-4 bg-primary z-50'>
