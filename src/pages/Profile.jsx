@@ -5,6 +5,7 @@ import { db } from '../firebase.config';
 import { useNavigate } from 'react-router-dom';
 import { MdLogout } from 'react-icons/md';
 import { toast } from 'react-toastify';
+import { FaUserCircle } from 'react-icons/fa';
 import Navbar from '../components/layout/Navbar';
 
 function Profile() {
@@ -53,20 +54,30 @@ function Profile() {
   };
 
   const resetPassword = () => {
-    sendPasswordResetEmail(auth, email)
-      .then(() => {
-        toast.success('Email was sent! Please check your spam');
-      })
-      .catch((error) => toast.error('Could not send reset email'));
+    if (window.confirm('Are you sure you want to reset password?')) {
+      sendPasswordResetEmail(auth, email)
+        .then(() => {
+          toast.success('Email was sent! Please check your spam');
+        })
+        .catch((error) => toast.error('Could not send reset email'));
+    }
   };
 
   return (
     <>
-      <div className='m-8 card bg-base-200'>
-        <div className='card-body'>
-          <h1 className='text-3xl font-bold'>{name}'s Profile</h1>
+      <header className='fixed top-0 w-full px-4 py-4 bg-primary z-50'>
+        <div className='flex flex-row text-base-100 '>
+          <FaUserCircle className='px-4 pb-2 text-[4.25rem]' />
+          <h1 className='text-3xl font-bold flex flex-col'>
+            {name}
+            <span className='text-sm font-light'>{email}</span>
+          </h1>
+        </div>
+      </header>
 
-          <form className='form-control mt-4'>
+      <div className='mt-[120px] mx-4 card bg-base-200'>
+        <div className='card-body'>
+          <form className='form-control'>
             <label className='label'>
               <span className='label-text font-bold'>Name</span>
             </label>
@@ -128,15 +139,17 @@ function Profile() {
           >
             Reset Password
           </button>
-
-          {/* Sign out */}
-          <button
-            className='btn btn-primary max-w-md text-base-100 mt-7'
-            onClick={onLogOut}
-          >
-            Logout <MdLogout className='text-lg mb-[2px] ml-2' />
-          </button>
         </div>
+      </div>
+
+      {/* Sign out */}
+      <div className='w-full grid mt-5 mb-[100px]'>
+        <button
+          className='btn btn-primary mx-auto w-[18rem] text-base-100'
+          onClick={onLogOut}
+        >
+          Logout <MdLogout className='text-lg mb-[2px] ml-2' />
+        </button>
       </div>
 
       <Navbar />
