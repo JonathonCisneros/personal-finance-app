@@ -2,7 +2,6 @@ import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { getAuth, sendPasswordResetEmail } from 'firebase/auth';
 import { toast } from 'react-toastify';
-import background from '../assets/sign-in-up.jpg';
 
 function ForgotPassword() {
   const [email, setEmail] = useState('');
@@ -28,16 +27,10 @@ function ForgotPassword() {
   // iPhone notch area color match
   document
     .querySelector('meta[name="theme-color"]')
-    .setAttribute('content', '#fff');
+    .setAttribute('content', '#d6dae0');
 
   return (
-    <div
-      className='hero min-h-screen py-5'
-      style={{
-        backgroundImage: `url(${background})`,
-        backgroundAttachment: 'fixed',
-      }}
-    >
+    <div className='hero min-h-screen py-5 bg-base-200 mobile:items-start'>
       <div className='hero-content flex-col'>
         <div className='text-center lg:text-left'>
           <h1 className='text-5xl font-bold text-center mb-4'>
@@ -63,14 +56,14 @@ function ForgotPassword() {
             <label className='label'>
               <Link
                 to='/sign-in'
-                className='label-text-alt link link-hover mt-[-5px] link-primary'
+                className='label-text-alt link link-hover mt-[-5px]'
               >
                 Oh, did you <span className='italic'>just</span> remember?
               </Link>
             </label>
             <div className='form-control mt-4'>
               <button
-                className='btn btn-primary text-base-100'
+                className='btn btn-accent text-base-100'
                 onClick={onSubmit}
               >
                 Reset Password

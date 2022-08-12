@@ -66,7 +66,7 @@ function Profile() {
   // iPhone notch area color match
   document
     .querySelector('meta[name="theme-color"]')
-    .setAttribute('content', '#4c6bfb');
+    .setAttribute('content', '#66cc8a');
 
   return (
     <>

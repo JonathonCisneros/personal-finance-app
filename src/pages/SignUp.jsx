@@ -9,7 +9,6 @@ import { setDoc, doc, serverTimestamp } from 'firebase/firestore';
 import { db } from '../firebase.config';
 import { toast } from 'react-toastify';
 import { MdVisibility, MdVisibilityOff } from 'react-icons/md';
-import background from '../assets/sign-in-up.jpg';
 import OAuth from '../components/OAuth';
 
 function SignUp() {
@@ -64,16 +63,10 @@ function SignUp() {
   // iPhone notch area color match
   document
     .querySelector('meta[name="theme-color"]')
-    .setAttribute('content', '#fff');
+    .setAttribute('content', '#d6dae0');
 
   return (
-    <div
-      className='hero min-h-screen py-5'
-      style={{
-        backgroundImage: `url(${background})`,
-        backgroundAttachment: 'fixed',
-      }}
-    >
+    <div className='hero min-h-screen py-5 bg-base-200'>
       <div className='hero-content flex-col'>
         <div className='text-center lg:text-left'>
           <h1 className='text-5xl font-bold text-center mb-4'>
