@@ -53,6 +53,14 @@ function Profile() {
     }
   };
 
+  const onCancel = () => {
+    setProfileData((prevState) => ({
+      ...prevState,
+      name: auth.currentUser.displayName,
+    }));
+    setChanging((prevState) => !prevState);
+  };
+
   const resetPassword = () => {
     if (window.confirm('Are you sure you want to reset password?')) {
       sendPasswordResetEmail(auth, email)
@@ -71,9 +79,9 @@ function Profile() {
   return (
     <>
       <header className='fixed top-0 w-full px-4 py-4 bg-primary z-50'>
-        <div className='flex flex-row text-base-100 '>
-          <FaUserCircle className='px-4 pb-2 text-[4.25rem]' />
-          <h1 className='text-3xl font-bold flex flex-col'>
+        <div className='flex flex-row text-base-100'>
+          <FaUserCircle className='px-4 pb-2 text-[4.25rem] pt-3' />
+          <h1 className='text-3xl font-bold flex flex-col pt-3'>
             {name}
             <span className='text-sm font-light'>{email}</span>
           </h1>
@@ -125,12 +133,7 @@ function Profile() {
             {changing && (
               <button
                 className='btn btn-base-200 md:btn-sm normal-case'
-                onClick={() => {
-                  setProfileData({
-                    name: auth.currentUser.displayName,
-                  });
-                  setChanging((prevState) => !prevState);
-                }}
+                onClick={onCancel}
               >
                 Cancel
               </button>
