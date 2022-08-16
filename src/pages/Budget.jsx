@@ -1,39 +1,94 @@
 import { useState } from 'react';
 import Navbar from '../components/layout/Navbar';
-import BudgetGroup from '../components/BudgetGroup';
+import BudgetGroup from '../components/budget/BudgetGroup';
 
 function Budget() {
-  const [group, setGroup] = useState([
+  const [budgetGroups, setBudgetGroups] = useState([
     {
       id: '123',
-      label: 'Income',
-      amount: 5000,
-    },
-    {
-      id: '124',
-      label: 'Income',
-      amount: 3000,
+      budgetGroupLabel: 'Income',
+      type: 'income',
+      budgetItems: [
+        {
+          label: 'Company One',
+          amount: 5000,
+          type: 'income',
+        },
+        {
+          label: 'Company Two',
+          amount: 3000,
+          type: 'income',
+        },
+      ],
     },
     {
       id: '456',
-      label: 'Savings',
-      amount: 2000,
+      budgetGroupLabel: 'Savings',
+      type: 'expense',
+      budgetItems: [
+        {
+          label: 'Emergency Fund',
+          amount: 1000,
+          type: 'expense',
+        },
+        {
+          label: 'House Fund',
+          amount: 500,
+          type: 'expense',
+        },
+      ],
     },
     {
       id: '789',
-      label: 'Debt 1',
-      amount: 300,
+      budgetGroupLabel: 'Investments',
+      type: 'expense',
+      budgetItems: [
+        {
+          label: '401k',
+          amount: 1000,
+          type: 'expense',
+        },
+        {
+          label: 'Roth IRA',
+          amount: 1000,
+          type: 'expense',
+        },
+      ],
     },
     {
       id: '101',
-      label: 'Debt 2',
-      amount: 1000,
+      budgetGroupLabel: 'Housing',
+      type: 'expense',
+      budgetItems: [
+        {
+          label: 'Rent',
+          amount: 2000,
+          type: 'expense',
+        },
+        {
+          label: 'Utilities',
+          amount: 100,
+          type: 'expense',
+        },
+      ],
     },
 
     {
       id: '102',
-      label: 'Debt 3',
-      amount: 100,
+      budgetGroupLabel: 'Debt',
+      type: 'expense',
+      budgetItems: [
+        {
+          label: 'Car Loan',
+          amount: 350,
+          type: 'expense',
+        },
+        {
+          label: 'Student Loan',
+          amount: 200,
+          type: 'expense',
+        },
+      ],
     },
   ]);
 
@@ -53,7 +108,9 @@ function Budget() {
           </header>
         </div>
 
-        <BudgetGroup group={group} />
+        <div className='max-w-[50rem] mx-auto'>
+          <BudgetGroup budgetGroups={budgetGroups} />
+        </div>
       </div>
 
       <Navbar />

@@ -9,7 +9,7 @@ import { setDoc, doc, serverTimestamp } from 'firebase/firestore';
 import { db } from '../firebase.config';
 import { toast } from 'react-toastify';
 import { MdVisibility, MdVisibilityOff } from 'react-icons/md';
-import OAuth from '../components/OAuth';
+import OAuth from '../components/shared/OAuth';
 
 function SignUp() {
   const [showPassword, setShowPassword] = useState(false);

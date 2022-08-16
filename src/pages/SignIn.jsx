@@ -3,7 +3,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { getAuth, signInWithEmailAndPassword } from 'firebase/auth';
 import { toast } from 'react-toastify';
 import { MdVisibility, MdVisibilityOff } from 'react-icons/md';
-import OAuth from '../components/OAuth';
+import OAuth from '../components/shared/OAuth';
 
 function SignIn() {
   const [showPassword, setShowPassword] = useState(false);

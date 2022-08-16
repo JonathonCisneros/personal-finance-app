@@ -91,75 +91,77 @@ function Profile() {
           </header>
         </div>
 
-        <div className='mx-4 card bg-base-100 shadow-md'>
-          <div className='card-body'>
-            <form className='form-control'>
-              <label className='label'>
-                <span className='label-text font-bold'>Name</span>
-              </label>
+        <div className='max-w-[50rem] mx-auto'>
+          <div className='mx-4 card bg-base-100 shadow-md'>
+            <div className='card-body'>
+              <form className='form-control'>
+                <label className='label'>
+                  <span className='label-text font-bold'>Name</span>
+                </label>
 
-              {/* Edit name */}
-              <input
-                id='name'
-                type='text'
-                value={name}
-                className='input input-bordered max-w-md'
-                onChange={onChange}
-                disabled={!changing}
-              />
+                {/* Edit name */}
+                <input
+                  id='name'
+                  type='text'
+                  value={name}
+                  className='input input-bordered max-w-md'
+                  onChange={onChange}
+                  disabled={!changing}
+                />
 
-              {/* Email not editable */}
-              <label className='label'>
-                <span className='label-text font-bold'>Email</span>
-              </label>
-              <input
-                id='email'
-                type='email'
-                value={email}
-                className='input input-bordered max-w-md'
-                disabled
-              />
-            </form>
+                {/* Email not editable */}
+                <label className='label'>
+                  <span className='label-text font-bold'>Email</span>
+                </label>
+                <input
+                  id='email'
+                  type='email'
+                  value={email}
+                  className='input input-bordered max-w-md'
+                  disabled
+                />
+              </form>
 
-            <div className='max-w-md flex gap-2 mt-2'>
-              <button
-                className='btn btn-secondary text-base-100 md:btn-sm normal-case'
-                onClick={() => {
-                  changing && onSubmit();
-                  setChanging((prevState) => !prevState);
-                }}
-              >
-                {changing ? 'Submit Changes' : 'Change Details'}
-              </button>
-
-              {/* Show "Cancel" button if changing info */}
-              {changing && (
+              <div className='max-w-md flex gap-2 mt-2'>
                 <button
-                  className='btn btn-base-200 text-base-100 md:btn-sm normal-case'
-                  onClick={onCancel}
+                  className='btn btn-secondary text-base-100 md:btn-sm normal-case'
+                  onClick={() => {
+                    changing && onSubmit();
+                    setChanging((prevState) => !prevState);
+                  }}
                 >
-                  Cancel
+                  {changing ? 'Submit Changes' : 'Change Details'}
                 </button>
-              )}
-            </div>
 
-            {/* Reset password */}
-            <button
-              className='btn btn-error max-w-md text-base-100 mt-7'
-              onClick={resetPassword}
-            >
-              Reset Password
-            </button>
+                {/* Show "Cancel" button if changing info */}
+                {changing && (
+                  <button
+                    className='btn btn-base-200 text-base-100 md:btn-sm normal-case'
+                    onClick={onCancel}
+                  >
+                    Cancel
+                  </button>
+                )}
+              </div>
+
+              {/* Reset password */}
+              <button
+                className='btn btn-error max-w-md text-base-100 mt-7'
+                onClick={resetPassword}
+              >
+                Reset Password
+              </button>
+            </div>
           </div>
         </div>
 
         {/* Sign out */}
-        <div className='w-full grid mt-5 mb-[100px]'>
+        <div className='w-full grid mt-10 mb-[100px]'>
           <button
-            className='btn btn-primary mx-auto w-[18rem] text-base-100'
+            className='btn btn-primary mx-auto w-[18rem] text-lg text-base-100 normal-case'
             onClick={onLogOut}
           >
-            Logout <MdLogout className='text-lg mb-[2px] ml-2' />
+            Sign Out <MdLogout className='text-lg mb-[2px] ml-2' />
           </button>
         </div>
       </div>
