@@ -20,6 +20,7 @@ module.exports = {
           accent: '#EA5234',
           neutral: '#333C4D',
           'base-100': '#F3F4F6',
+          'base-200': '#D8E1E5',
           info: '#3ABFF8',
           success: '#36D399',
           warning: '#FBBD23',
