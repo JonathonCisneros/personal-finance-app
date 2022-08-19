@@ -1,12 +1,10 @@
 import { currencyFormatter } from '../shared/utils';
 
 function BudgetItem({ budgetItem }) {
-  console.log(budgetItem);
-
   return (
     <div className='mb-2'>
-      {budgetItem.map((item) => (
-        <>
+      {budgetItem?.map((item) => (
+        <div key={item.uid}>
           <div className='flex justify-between'>
             <input
               className='input input-ghost input-sm text-lg px-0 max-w-[60%]'
@@ -18,7 +16,7 @@ function BudgetItem({ budgetItem }) {
             />
           </div>
           <hr className='mb-2' />
-        </>
+        </div>
       ))}
     </div>
   );

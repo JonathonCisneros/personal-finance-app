@@ -1,17 +1,24 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { currencyFormatter } from '../shared/utils';
 import BudgetItem from './BudgetItem';
 
 function BudgetGroup({ budgetGroups }) {
+  const [incomeGroup, setIncomeGroup] = useState({});
+  const [expenseGroups, setExpenseGroups] = useState([]);
+
+  useEffect(() => {
+    budgetGroups.map((budgetGroup) => {
+      if (budgetGroup?.type === 'income') {
+        setIncomeGroup(budgetGroup);
+      } else if (budgetGroup?.type === 'expense') {
+        setExpenseGroups((prevState) => [...prevState, budgetGroup]);
+      }
+    });
+  }, [budgetGroups]);
+
   let monthlyIncome = 0;
-  const incomeGroup = budgetGroups[0].budgetItems;
-
-  const incomes = incomeGroup.map((each) => {
-    return each.amount;
-  });
-
-  for (let i = 0; i < incomes.length; i++) {
-    monthlyIncome += incomes[i];
+  for (let i = 0; i < incomeGroup.budgetItems?.length; i++) {
+    monthlyIncome += incomeGroup.budgetItems[i].amount;
   }
 
   return (
@@ -24,14 +31,29 @@ function BudgetGroup({ budgetGroups }) {
           <p className='text-md font-light'>Monthly Income</p>
         </div>
 
-        {budgetGroups.map((budgetItem) => (
-          <div className='card bg-base-100 my-5 shadow-sm' key={budgetItem.id}>
+        {/* Income group, cannot delete */}
+        <div className='card bg-base-100 my-5 shadow-sm'>
+          <div className='card-body p-4'>
+            <h1 className='card-title text-sm justify-between mb-2 text-gray-500'>
+              {incomeGroup.label}
+              <span className='font-light text-sm'>Planned</span>
+            </h1>
+            <BudgetItem budgetItem={incomeGroup.budgetItems} />
+          </div>
+        </div>
+
+        {/* Expense groups, can delete */}
+        {expenseGroups?.map((expenseItem) => (
+          <div
+            className='card bg-base-100 my-5 shadow-sm'
+            key={expenseItem.uid}
+          >
             <div className='card-body p-4'>
               <h1 className='card-title text-sm justify-between mb-2 text-gray-500'>
-                {budgetItem.budgetGroupLabel}
+                {expenseItem.label}
                 <span className='font-light text-sm'>Planned</span>
               </h1>
-              <BudgetItem budgetItem={budgetItem.budgetItems} />
+              <BudgetItem budgetItem={expenseItem.budgetItems} />
             </div>
           </div>
         ))}

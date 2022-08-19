@@ -1,101 +1,42 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import { collection, query, where, getDocs } from 'firebase/firestore';
+import { getAuth } from 'firebase/auth';
+import { db } from '../firebase.config';
 import Navbar from '../components/layout/Navbar';
 import BudgetGroup from '../components/budget/BudgetGroup';
+import Spinner from '../components/shared/Spinner';
 
 function Budget() {
-  const [budgetGroups, setBudgetGroups] = useState([
-    {
-      id: '123',
-      budgetGroupLabel: 'Income',
-      type: 'income',
-      budgetItems: [
-        {
-          label: 'Company One',
-          amount: 5000,
-          type: 'income',
-        },
-        {
-          label: 'Company Two',
-          amount: 3000,
-          type: 'income',
-        },
-      ],
-    },
-    {
-      id: '456',
-      budgetGroupLabel: 'Savings',
-      type: 'expense',
-      budgetItems: [
-        {
-          label: 'Emergency Fund',
-          amount: 1000,
-          type: 'expense',
-        },
-        {
-          label: 'House Fund',
-          amount: 500,
-          type: 'expense',
-        },
-      ],
-    },
-    {
-      id: '789',
-      budgetGroupLabel: 'Investments',
-      type: 'expense',
-      budgetItems: [
-        {
-          label: '401k',
-          amount: 1000,
-          type: 'expense',
-        },
-        {
-          label: 'Roth IRA',
-          amount: 1000,
-          type: 'expense',
-        },
-      ],
-    },
-    {
-      id: '101',
-      budgetGroupLabel: 'Housing',
-      type: 'expense',
-      budgetItems: [
-        {
-          label: 'Rent',
-          amount: 2000,
-          type: 'expense',
-        },
-        {
-          label: 'Utilities',
-          amount: 100,
-          type: 'expense',
-        },
-      ],
-    },
+  const [budgetGroups, setBudgetGroups] = useState([]);
+  const [loading, setLoading] = useState(false);
 
-    {
-      id: '102',
-      budgetGroupLabel: 'Debt',
-      type: 'expense',
-      budgetItems: [
-        {
-          label: 'Car Loan',
-          amount: 350,
-          type: 'expense',
-        },
-        {
-          label: 'Student Loan',
-          amount: 200,
-          type: 'expense',
-        },
-      ],
-    },
-  ]);
+  const auth = getAuth();
+
+  useEffect(() => {
+    setLoading(true);
+    const fetchBudgetGroups = async () => {
+      const q = query(
+        collection(db, 'budgetGroups'),
+        where('userRef', '==', '0123456789')
+      );
+
+      const querySnap = await getDocs(q);
+      querySnap.forEach((doc) => {
+        setBudgetGroups((prevState) => [...prevState, doc.data()]);
+      });
+      setLoading(false);
+    };
+
+    fetchBudgetGroups();
+    console.count('Firebase reads');
+  }, []);
 
   // iPhone notch area color match
   document
     .querySelector('meta[name="theme-color"]')
-    .setAttribute('content', '#66cc8a');
+    .setAttribute('content', '#006FCF');
+
+  if (loading) return <Spinner />;
 
   return (
     <>

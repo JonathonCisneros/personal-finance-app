@@ -74,7 +74,7 @@ function Profile() {
   // iPhone notch area color match
   document
     .querySelector('meta[name="theme-color"]')
-    .setAttribute('content', '#66cc8a');
+    .setAttribute('content', '#006FCF');
 
   return (
     <>
@@ -124,7 +124,7 @@ function Profile() {
 
               <div className='max-w-md flex gap-2 mt-2'>
                 <button
-                  className='btn btn-secondary text-base-100 md:btn-sm normal-case'
+                  className='btn btn-base-200 text-base-100 md:btn-sm normal-case'
                   onClick={() => {
                     changing && onSubmit();
                     setChanging((prevState) => !prevState);
@@ -136,7 +136,7 @@ function Profile() {
                 {/* Show "Cancel" button if changing info */}
                 {changing && (
                   <button
-                    className='btn btn-base-200 text-base-100 md:btn-sm normal-case'
+                    className='btn btn-outline md:btn-sm normal-case'
                     onClick={onCancel}
                   >
                     Cancel
