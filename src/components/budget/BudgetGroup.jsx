@@ -53,7 +53,9 @@ function BudgetGroup({ budgetGroups }) {
                 {expenseItem.label}
                 <span className='font-light text-sm'>Planned</span>
               </h1>
-              <BudgetItem budgetItem={expenseItem.budgetItems} />
+              {expenseItem.budgetItems?.map((item) => (
+                <BudgetItem item={item} />
+              ))}
             </div>
           </div>
         ))}

@@ -7,6 +7,7 @@ import PrivateRoute from './components/shared/PrivateRoute';
 import Budget from './pages/Budget';
 import SignIn from './pages/SignIn';
 import SignUp from './pages/SignUp';
+import CreateFirstBudget from './pages/CreateFirstBudget';
 import ForgotPassword from './pages/ForgotPassword';
 import Profile from './pages/Profile';
 
@@ -23,6 +24,13 @@ function App() {
               <Route path='/profile' element={<Profile />} />
             </Route>
             <Route path='/sign-up' element={<SignUp />} />
+            <Route path='/create-your-first-budget' element={<PrivateRoute />}>
+              <Route
+                path='/create-your-first-budget'
+                element={<CreateFirstBudget />}
+              />
+            </Route>
+
             <Route path='/sign-in' element={<SignIn />} />
             <Route path='/forgot-password' element={<ForgotPassword />} />
           </Routes>

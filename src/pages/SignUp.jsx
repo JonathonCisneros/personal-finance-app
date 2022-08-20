@@ -10,9 +10,11 @@ import { db } from '../firebase.config';
 import { toast } from 'react-toastify';
 import { MdVisibility, MdVisibilityOff } from 'react-icons/md';
 import OAuth from '../components/shared/OAuth';
+import Spinner from '../components/shared/Spinner';
 
 function SignUp() {
   const [showPassword, setShowPassword] = useState(false);
+  const [loading, setLoading] = useState(false);
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -33,6 +35,7 @@ function SignUp() {
   // add user to firebase database
   const onSubmit = async (e) => {
     e.preventDefault();
+    setLoading(true);
 
     try {
       const auth = getAuth();
@@ -54,11 +57,16 @@ function SignUp() {
 
       await setDoc(doc(db, 'users', user.uid), formDataCopy); // adds 'user' to user collection
 
-      navigate('/');
+      setTimeout(() => {
+        navigate('/create-your-first-budget');
+        setLoading(false);
+      }, 3000);
     } catch (error) {
       toast.error(error.message);
     }
   };
+
+  if (loading) return <Spinner />;
 
   // iPhone notch area color match
   document

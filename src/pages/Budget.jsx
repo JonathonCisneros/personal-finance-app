@@ -17,7 +17,7 @@ function Budget() {
     const fetchBudgetGroups = async () => {
       const q = query(
         collection(db, 'budgetGroups'),
-        where('userRef', '==', '0123456789')
+        where('userRef', '==', auth.currentUser.uid)
       );
 
       const querySnap = await getDocs(q);
@@ -43,9 +43,7 @@ function Budget() {
       <div className='bg-base-200'>
         <div className='relative h-[100px]'>
           <header className='fixed top-0 w-full px-4 py-8 bg-primary z-50 shadow-sm'>
-            <h1 className='text-base-100 text-3xl'>
-              <span className='font-bold'>August</span> 2022
-            </h1>
+            <h1 className='text-base-100 text-3xl'>My Budget</h1>
           </header>
         </div>
 
