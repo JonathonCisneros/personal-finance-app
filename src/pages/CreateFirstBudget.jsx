@@ -1,7 +1,8 @@
 import { useState, useEffect, useRef } from 'react';
 import { getAuth, onAuthStateChanged } from 'firebase/auth';
 import {
-  addDoc,
+  setDoc,
+  doc,
   collection,
   serverTimestamp,
   query,
@@ -73,33 +74,33 @@ function CreateFirstBudget() {
       );
 
       const querySnap = await getDocs(q);
-      querySnap.forEach((doc) => {
-        console.log(doc.data());
-      });
+      console.log(querySnap);
+
       setLoading(false);
+
+      if (querySnap.docs.length == 0) {
+        const firstBudgetCopy = {
+          ...firstBudget,
+          timestamp: serverTimestamp(),
+        };
+
+        await setDoc(
+          doc(db, 'budgetGroups', auth.currentUser.uid),
+          firstBudgetCopy
+        );
+
+        setLoading(false);
+
+        toast.success('Your budget has been created! 🤑');
+
+        navigate('/');
+      } else {
+        toast.error('You already have a budget silly!');
+        navigate('/');
+      }
     };
 
     fetchBudgetGroups();
-
-    // TODO: Check if user already has a budget
-    // if () {
-    // const firstBudgetCopy = {
-    //   ...firstBudget,
-    //   timestamp: serverTimestamp(),
-    // };
-
-    // const docRef = await addDoc(
-    //   collection(db, 'budgetGroups'),
-    //   firstBudgetCopy
-    // );
-    // console.log(docRef);
-    // setLoading(false);
-    // toast.success('Budget created!');
-    // navigate('/');
-    // } else {
-    //   toast.error('You already have a budget silly!');
-    //   navigate('/');
-    // }
   };
 
   if (loading) return <Spinner />;
@@ -112,8 +113,11 @@ function CreateFirstBudget() {
   return (
     <div className='hero min-h-[90vh] md:min-h-screen bg-base-200'>
       <div className='card mx-3 shadow-md bg-base-100 bg-opacity-80 backdrop-blur-lg'>
-        <div className='card-body text-center py-[3rem] md:p-[5rem]'>
-          <h1 className='text-2xl pb-4 font-bold'>Hello {name}!</h1>
+        <div className='card-body text-center py-[3rem] md:p-[5rem] max-w-lg'>
+          <h1 className='text-2xl font-bold'>Hello there, {name}</h1>
+          <p className='text-lg font-light pb-3'>
+            Looks like you're new here so click below to start your budget!
+          </p>
           <button
             className='btn btn-primary text-base-100'
             onClick={createFirstBudget}

@@ -47,7 +47,7 @@ function Budget() {
           </header>
         </div>
 
-        <div className='max-w-[50rem] mx-auto'>
+        <div className='max-w-[50rem] mx-auto min-h-screen'>
           <BudgetGroup budgetGroups={budgetGroups} />
         </div>
       </div>
